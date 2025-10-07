@@ -1,0 +1,259 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Studio MABS API",
+    "version": "1.0.0",
+    "description": "API para gerenciamento de clientes, serviços e agendamentos da Studio MABS"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/api/clients": {
+      "get": {
+        "summary": "Listar todos os clientes",
+        "responses": {
+          "200": {
+            "description": "Lista de clientes"
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar novo cliente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "phone": { "type": "string" }
+                },
+                "required": ["name", "email", "phone"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Cliente criado com sucesso" }
+        }
+      }
+    },
+    "/api/clients/{id}": {
+      "get": {
+        "summary": "Buscar cliente por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Cliente encontrado" },
+          "404": { "description": "Cliente não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar cliente",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "phone": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Cliente atualizado com sucesso" }
+        }
+      },
+      "delete": {
+        "summary": "Excluir cliente",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Cliente excluído com sucesso" }
+        }
+      }
+    },
+
+    "/api/services": {
+      "get": {
+        "summary": "Listar todos os serviços",
+        "responses": {
+          "200": { "description": "Lista de serviços" }
+        }
+      },
+      "post": {
+        "summary": "Criar novo serviço",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string", "example": "Corte de cabelo" },
+                  "price": { "type": "number", "example": 80.0 },
+                  "duration": { "type": "integer", "example": 60 }
+                },
+                "required": ["name", "price", "duration"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Serviço criado com sucesso" }
+        }
+      }
+    },
+    "/api/services/{id}": {
+      "get": {
+        "summary": "Buscar serviço por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Serviço encontrado" },
+          "404": { "description": "Serviço não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar serviço",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "price": { "type": "number" },
+                  "duration": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Serviço atualizado com sucesso" }
+        }
+      },
+      "delete": {
+        "summary": "Excluir serviço",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Serviço excluído com sucesso" }
+        }
+      }
+    },
+
+    "/api/appointments": {
+      "get": {
+        "summary": "Listar todos os agendamentos",
+        "responses": {
+          "200": { "description": "Lista de agendamentos" }
+        }
+      },
+      "post": {
+        "summary": "Criar novo agendamento",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientId": { "type": "integer", "example": 1 },
+                  "serviceId": { "type": "integer", "example": 2 },
+                  "date": { "type": "string", "format": "date-time", "example": "2025-10-06T14:00:00Z" }
+                },
+                "required": ["clientId", "serviceId", "date"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Agendamento criado com sucesso" }
+        }
+      }
+    },
+    "/api/appointments/{id}": {
+      "get": {
+        "summary": "Buscar agendamento por ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Agendamento encontrado" },
+          "404": { "description": "Agendamento não encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Atualizar agendamento",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "clientId": { "type": "integer" },
+                  "serviceId": { "type": "integer" },
+                  "date": { "type": "string", "format": "date-time" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Agendamento atualizado com sucesso" }
+        }
+      },
+      "delete": {
+        "summary": "Excluir agendamento",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Agendamento excluído com sucesso" }
+        }
+      }
+    }
+  }
+}
