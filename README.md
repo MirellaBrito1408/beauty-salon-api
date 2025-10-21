@@ -1,6 +1,6 @@
 # Beauty Salon API
 
-API do Salão de Beleza Vienna Store, desenvolvida com **Node.js, Express, TypeScript, Prisma, PostgreSQL, Zod e Swagger**.  
+API do Studio MABS, desenvolvida com **Node.js, Express, TypeScript, Prisma, PostgreSQL, Zod e Swagger**.  
 Essa API gerencia **clientes, serviços e agendamentos**, permitindo criar, listar, atualizar e excluir registros, além de mostrar relações entre tabelas.
 
 ---
